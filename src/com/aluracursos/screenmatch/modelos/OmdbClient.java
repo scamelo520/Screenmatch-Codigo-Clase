@@ -1,4 +1,4 @@
-/*package com.aluracursos.screenmatch.modelos;
+package com.aluracursos.screenmatch.modelos;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,14 +13,19 @@ public class OmdbClient {
     public OmdbClient(String busqueda) {
     }
 
+    public OmdbClient() {
+
+    }
+
     public String buscarPelicula(String busqueda){
-        HttpClient client = HttpClient.newHttpClient();
         String direccion = baseUrl + busqueda.replace(" ", "+")+
                 "&apikey="+apiKey;
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(direccion))
-                .build();
+
         try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(direccion))
+                    .build();
             HttpResponse<String> response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();
@@ -28,7 +33,5 @@ public class OmdbClient {
             System.out.println("Error al buscar la pelicula: " +e.getMessage());
             return null;
         }
-        String json = response.body();
-        System.out.println(json);
     }
-}*/
+}

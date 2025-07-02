@@ -1,6 +1,7 @@
 package com.aluracursos.screenmatch.principal;
 
 import com.aluracursos.screenmatch.Excepciones.ErrorEnConversionDeDuracionException;
+import com.aluracursos.screenmatch.modelos.OmdbClient;
 import com.aluracursos.screenmatch.modelos.Titulo;
 import com.aluracursos.screenmatch.modelos.TituloOmdb;
 import com.google.gson.FieldNamingPolicy;
@@ -46,7 +47,8 @@ public class PrincipalConBusqueda {
                 HttpResponse<String> response = client
                         .send(request, HttpResponse.BodyHandlers.ofString());
 
-                String json = response.body();
+                OmdbClient buscador = new OmdbClient();
+                String json = buscador.buscarPelicula(busqueda);
                 System.out.println(json);
 
                 TituloOmdb miTituloOmdb = gson.fromJson(json, TituloOmdb.class);
